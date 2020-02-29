@@ -16,8 +16,8 @@ Circles.create({
 
 $.notify({
 	icon: 'la la-bell',
-	title: 'Bootstrap notify',
-	message: 'Turning standard Bootstrap alerts into "notify" like notifications',
+	title: 'Bienvenido a ISC Control',
+	message: 'El mejor Sistema de control de asistencia creado por Insite Soluciones.',
 },{
 	type: 'success',
 	placement: {

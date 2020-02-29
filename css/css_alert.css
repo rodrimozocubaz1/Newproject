@@ -1,0 +1,35 @@
+.container_alert{
+    width: 100%; 
+    position: fixed; 
+    z-index: 99999999;
+    top: 10px;
+    left: 10px;
+}
+
+.container_alert .error_alert{
+    width: 297px;
+    background-color: #af284c;
+    border: 1px solid #8a1636;
+    color: white;
+    border-radius: 8px;
+    text-align: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+}
+
+.container_alert .ok_alert{
+    width: 297px;
+    background-color: #59d05d;
+    border: 1px solid #46af49;
+    color: white;
+    border-radius: 8px;
+    text-align: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+}

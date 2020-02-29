@@ -4,7 +4,7 @@ if ($_SESSION['acceso'] <> true) {
     header("Location: ./login");
 }
 header('Content-Type: text/html; charset=UTF-8');
-@$active = 'horario';
+@$active = 'registrar_empleado';
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@ header('Content-Type: text/html; charset=UTF-8');
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <div class="card-title">Registrar Nuevo Horario</div>
+                                        <div class="card-title">Registrar Horario</div>
                                     </div>
                                     <div class="card-body col-md-12">
                                         <div class="form-group">
@@ -86,11 +86,26 @@ header('Content-Type: text/html; charset=UTF-8');
                                             <div class="row">
 
                                                 <form method="GET" id="form-actualizar-horario">
-                                                    
                                                     <div class="col-md-6">
-                                                        <label>Elegir un Empleado :</label>
-                                                        <input type="hidden" id="idempleadohidden">
+                                                        <label>Registrar DNI de Empleado :</label>
+                                                        
+                                                        <input type="text" class="form-control" id="DNIempleado"/> 
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>Registrar Nombre De Empleado :</label>
+                                                        
                                                         <input type="text" class="form-control" id="txtbuscarempleado"/> 
+                                                    </div>
+                                                    <div style="margin-top:10px;" class="col-md-6">
+                                                        <label>Lugar al que pertenece :</label>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                            <div class="row">                                                
+                                                                <select id="select-locales-a" class="form-control col-md-2" style="margin: 12px;" onchange="">
+                                                                </select>
+                                                                <select id="select-departamentos-a" class="form-control col-md-2" style="margin: 12px;">
+                                                                </select>
                                                     </div>
                                                     <label style="margin-left:15px;margin-top:30px">Elegir día de semana :</label>
                                                     <div class="contenidito">
@@ -110,7 +125,7 @@ header('Content-Type: text/html; charset=UTF-8');
                                     </div>
                                     <div class="card-action">
                                     
-                                      <a class="btn btn-success" href="#" onclick="horario()"><i class="la la-file-excel-o"></i> Actualizar horario</a>
+                                      <a class="btn btn-success" href="#" onclick="nuevoempleado()"><i class="la la-file-excel-o"></i> Registrar Empleado</a>
                                                                 
                                         <button class="btn btn-danger" type="reset">Limpiar</button>
                                     </div>
@@ -135,7 +150,7 @@ header('Content-Type: text/html; charset=UTF-8');
         <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
         <script src="assets/js/ready.min.js"></script>
         <script type="text/javascript" src="script/reportes.js"></script>
-
+        <script src="script/select-dinamicos2.js" type="text/javascript"></script>
         <!--Ejemplo a seguir es esto : https://makitweb.com/jquery-ui-autocomplete-with-php-and-ajax/-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -174,41 +189,7 @@ header('Content-Type: text/html; charset=UTF-8');
             });
             //
 
-            $(function () {
-                // Single Select
-                $("#txtbuscarempleado").autocomplete({
-
-                    source: function (request, response) {
-                        // Fetch data
-                        $.ajax({
-                            url: rutaWS + "listado-empleados.php",
-                            type: 'POST',
-                            dataType: "json",
-                            data: {
-                                search: request.term,
-                                cmd: 'buscarempleadohorario'
-                            },
-                            success: function (data) {
-                                response(data['data']);
-                            }
-                        });
-                    },
-                    select: function (event, ui) {
-                        // Set selection
-                        document.getElementById("txtbuscarempleado").value = ui.item.label;
-                        document.getElementById("idempleadohidden").value = ui.item.value;
-                        //$('#txtbuscarempleado').val(ui.item.name); // display the selected text
-                        //$('#idempleadohidden').val(ui.item.value); // save selected id to input
-                        return false;
-                    }
-                });
-            });
-            function split(val) {
-                return val.split(/,\s*/);
-            }
-            function extractLast(term) {
-                return split(term).pop();
-            }
+            
         </script>
 
 
@@ -238,6 +219,41 @@ header('Content-Type: text/html; charset=UTF-8');
                         // Set selection
                         document.getElementById("txtbuscarhorario").value = ui.item.label;
                         document.getElementById("idhorariohidden").value = ui.item.value;
+                        //$('#txtbuscarempleado').val(ui.item.name); // display the selected text
+                        //$('#idempleadohidden').val(ui.item.value); // save selected id to input
+                        return false;
+                    }
+                });
+            });
+            function split(val) {
+                return val.split(/,\s*/);
+            }
+            function extractLast(term) {
+                return split(term).pop();
+            }
+            $(function () {
+                // Single Select
+                $("#txtdepartamento").autocomplete({
+
+                    source: function (request, response) {
+                        // Fetch data
+                        $.ajax({
+                            url: rutaWS + "list-departamento.php",
+                            type: 'POST',
+                            dataType: "json",
+                            data: {
+                                search: request.term,
+                                cmd: 'lista-departamento',
+                            },
+                            success: function (data) {
+                                response(data['data']);
+                            }
+                        });
+                    },
+                    select: function (event, ui) {
+                        // Set selection
+                        document.getElementById("txtdepartamento").value = ui.item.label;
+                        document.getElementById("departamentohidden").value = ui.item.value;
                         //$('#txtbuscarempleado').val(ui.item.name); // display the selected text
                         //$('#idempleadohidden').val(ui.item.value); // save selected id to input
                         return false;
