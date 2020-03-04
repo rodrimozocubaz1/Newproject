@@ -14,7 +14,7 @@ $ver= trim(@$_GET['ver']);
     <head>
         <script src="script/variables.js" type="text/javascript"></script>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title>ISC Control | Busqueda</title>
+        <title>ISC Control | Notificaciones</title>
         <meta name="viewport" content= "width=device-width, user-scalable=no">
         <link rel="shortcut icon" type="image/x-icon" href="img/logo.png" />
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">

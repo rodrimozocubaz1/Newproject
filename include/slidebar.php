@@ -78,14 +78,25 @@
                 </a>
             </li>
             <li class="nav-item <?php
+            if (@$active == 'registrar_local') {
+                echo 'active';
+            }
+            ?>">
+                <a href="registrar_local">
+                    <i class="la la-building-o"></i>
+                    <p>Locales</p>
+                    <span class="badge badge-count">4</span>
+                </a>
+            </li>
+            <li class="nav-item <?php
             if (@$active == 'registrar_empleado') {
                 echo 'active';
             }
             ?>">
-                <a href="registrar_empleado">
-                    <i class="la la-folder"></i>
-                    <p>Registrar Empleado</p>
-                    <span class="badge badge-count">4</span>
+                <a href="empleados">
+                    <i class="la la-user"></i>
+                    <p>Empleados</p>
+                    <span class="badge badge-count">5</span>
                 </a>
             </li>
             <li class="nav-item <?php
@@ -96,17 +107,17 @@
                 <a href="notificaciones.php?cmd=listarnotificaiones&idnotificacion=0&ver=history">
                     <i class="la la-bell"></i>
                     <p>Notificaciones</p>
-                    <span class="badge badge-count">5</span>
+                    <span class="badge badge-count">6</span>
                 </a>
             </li>
 
             <hr>
             <li class="nav-item update-pro">
                 <!--<img src="./img/cviche.png">-->
-                <button  data-toggle="modal" data-target="#modalUpdate">
-                    <i class="la la-hand-pointer-o"></i>
-                    <p>Contáctanos Aqui</p>
-                </button>
+                <a href="https://insitesoluciones.com/" style="color: #fff;" class="btn btn-primary" target="_blank">
+                    <i class="la la-hand-pointer-o" style="color: #fff;"></i>
+                    <p>Contáctanos</p>
+                </a>
             </li>
             <hr>
             <!--            <li class="nav-item">
