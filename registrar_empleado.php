@@ -29,7 +29,7 @@ header('Content-Type: text/html; charset=UTF-8');
         <?php if(@$_GET["m"]==1) { ?>
 
             <script> 
-                document.getElementById("container_alert").innerHTML = '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-success animated fadeInDown" role="alert" data-notify-position="bottom-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;"><button onclick="cerraralert();" type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">×</button><span data-notify="icon" class="la la-clock-o"></span> <span data-notify="title">Mensaje :</span> <span data-notify="message">Usuario Actualizado</span><a href="#" target="_blank" data-notify="url"></a></div>';
+                document.getElementById("container_alert").innerHTML = '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-success animated fadeInDown" role="alert" data-notify-position="bottom-right" style="display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out 0s; z-index: 1031; bottom: 20px; right: 20px;"><button onclick="cerraralert();" type="button" aria-hidden="true" class="close" data-notify="dismiss" style="position: absolute; right: 10px; top: 5px; z-index: 1033;">×</button><span data-notify="icon" class="la la-clock-o"></span> <span data-notify="title">Mensaje :</span> <span data-notify="message">Empleado Registrado</span><a href="#" target="_blank" data-notify="url"></a></div>';
             </script>
         <?php } ?>
         <div class="wrapper">

@@ -88,7 +88,18 @@
                     <span class="badge badge-count">4</span>
                 </a>
             </li>
-            
+            <li class="nav-item <?php
+            if (@$active == 'notificaciones') {
+                echo 'active';
+            }
+            ?>">
+                <a href="notificaciones.php?cmd=listarnotificaiones&idnotificacion=0&ver=history">
+                    <i class="la la-bell"></i>
+                    <p>Notificaciones</p>
+                    <span class="badge badge-count">5</span>
+                </a>
+            </li>
+
             <hr>
             <li class="nav-item update-pro">
                 <!--<img src="./img/cviche.png">-->

@@ -79,8 +79,9 @@ header('Content-Type: text/html; charset=UTF-8');
                                                                 </div>
                                                                 <input type="date" id="fechadesde-g" class="form-control col-md-3" style="margin: 5px;">
                                                                 <input type="date" id="fechahasta-g" class="form-control col-md-3" style="margin: 5px;">
-
-                                                                <button class="btn btn-primary" id="btnbusquedageneral" style="margin: 5px;" style="margin: 5px;">Buscar</button>
+                                                                
+                                                                <button class="btn btn-danger" id="btncalculargeneral" onclick="calcular(this.id);" style="margin: 5px;" style="margin: 5px;">Calcular</button>
+                                                                <button class="btn btn-primary" id="btnbusquedageneral" onclick="buscar_ga(this.id);" style="margin: 5px;" style="margin: 5px;">Mostrar</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -123,8 +124,10 @@ header('Content-Type: text/html; charset=UTF-8');
                                                                 </select>
                                                                 <input type="date" step="1" id="fechadesde-a" class="form-control col-md-2" style="margin: 5px;">
                                                                 <input type="date" step="1" id="fechahasta-a" class="form-control col-md-2" style="margin: 5px;">
-                                                                <button class="btn btn-primary" id="btnbusquedaavanzada" style="margin: 5px;">Buscar</button>
-
+                                                                <div class="col-md-12">                                                                
+                                                                    <button class="btn btn-danger" id="btncalcularavanzada" onclick="calcular(this.id);" style="margin: 5px;" style="margin: 5px;">Calcular</button>
+                                                                    <button class="btn btn-primary" id="btnbusquedaavanzada" onclick="buscar_ga(this.id);" style="margin: 5px;">Mostrar</button>
+                                                                </div>
                                                                 <!--                                                                <br>
                                                                                                                                 <center>
                                                                                                                                     <button class="btn btn-success" id="btnreporte" style="margin: 5px;">
@@ -193,12 +196,13 @@ header('Content-Type: text/html; charset=UTF-8');
                                                         <th>Tardanza</th>
                                                         <th>Salida Temprana</th>
                                                         <th>Tiempo Justo</th>
-                                                        <th>Tiempo Total</th>
+                                                        <th>Tiempo Total</th>                                                        
+                                                        <th>Anotaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="calculo_empleados">
                                                     <tr>
-                                                        <td colspan="13">
+                                                        <td colspan="14">
                                                 <center>No se encontraron resultados</center>
                                                 </td>
                                                 </tr>
@@ -212,51 +216,78 @@ header('Content-Type: text/html; charset=UTF-8');
                     </div>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="modalUpdatePro" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+
+            <!-- Modal  Crear Anotaciones-->
+            <div class="modal fade" id="crearanotacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <h6 class="modal-title"><i class="la la-frown-o"></i> Under Development</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="modal-header">                            
+                            <h4 class="modal-title" id="myModalLabel">Crear Anotación</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
-                        <div class="modal-body text-center">									
-                            <p>Currently the pro version of the <b>Ready Dashboard</b> Bootstrap is in progress development</p>
-                            <p>
-                                <b>We'll let you know when it's done</b></p>
+                        <div class="modal-body">
+                            <input type="hidden" hidden="hidden" id="idemphidden">
+                            <input type="hidden" hidden="hidden" id="fechahidden">
+                            <input type="hidden" hidden="hidden" id="btnid1hidden">
+                            <textarea id="txtanotacion" class="form-control"></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="registrarnotacion();">Registrar</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Modal  Crear Anotaciones-->
+            <div class="modal fade" id="listado_anotaciones" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">                            
+                            <h4 class="modal-title" id="myModalLabel">Lista de anotaciones</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" hidden="hidden" id="idemphiddenlista">
+                            <input type="hidden" hidden="hidden" id="fechahiddenlista">
+                            <input type="hidden" hidden="hidden" id="btnid2hidden">
+                            <ul class="list-group" id="listado_de_anotaciones" style="overflow: auto;height: 250px;">   
+                                <center>Lista Vacia</center>
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="cerrarlistadoanotaciones">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="assets/js/core/jquery.3.2.1.min.js"></script>
+            <script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+            <script src="assets/js/core/popper.min.js"></script>
+            <script src="assets/js/core/bootstrap.min.js"></script>
+            <script src="assets/js/plugin/chartist/chartist.min.js"></script>
+            <script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+            <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+            <script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+            <script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+            <script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+            <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+            <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+            <script src="assets/js/ready.min.js"></script>
+            <!-- Esto contiene el mensaje de bienvenida <script src="assets/js/demo.js"></script>-->
+
+            <script src="script/cerrar_alert.js" type="text/javascript"></script>
+            <script src="script/cerrarsesion.js" type="text/javascript"></script>
+            <script src="script/select-dinamicos.js" type="text/javascript"></script>
+
+            <script src="script/typeahead.js" type="text/javascript"></script>
+            <script src="script/autocompleteempleado.js" type="text/javascript"></script>
+
+            <script src="script/reportes.js" type="text/javascript"></script>
+
+            <script src="script/calcular.js" type="text/javascript"></script>
+
+            <script src="script/lista_calculo.js" type="text/javascript"></script>
     </body>
-
-    <script src="assets/js/core/jquery.3.2.1.min.js"></script>
-    <script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap.min.js"></script>
-    <script src="assets/js/plugin/chartist/chartist.min.js"></script>
-    <script src="assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
-    <script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
-    <script src="assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
-    <script src="assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
-    <script src="assets/js/plugin/chart-circle/circles.min.js"></script>
-    <script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="assets/js/ready.min.js"></script>
-    <!-- Esto contiene el mensaje de bienvenida <script src="assets/js/demo.js"></script>-->
-
-    <script src="script/cerrar_alert.js" type="text/javascript"></script>
-    <script src="script/cerrarsesion.js" type="text/javascript"></script>
-    <script src="script/select-dinamicos.js" type="text/javascript"></script>
-    <script src="script/busqueda.js" type="text/javascript"></script>
-
-    <script src="script/typeahead.js" type="text/javascript"></script>
-    <script src="script/autocompleteempleado.js" type="text/javascript"></script>
-
-    <script src="script/reportes.js" type="text/javascript"></script>
 </html>
